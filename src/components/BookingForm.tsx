@@ -52,14 +52,38 @@ const BookingForm = () => {
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.concern || !formData.preferredTime) {
       toast.error("Por favor, preencha todos os campos");
       return;
     }
-    toast.success("Agendamento enviado com sucesso! Entraremos em contato em breve.");
-    console.log("Form submitted:", formData);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-booking`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar agendamento");
+      }
+
+      toast.success("Agendamento enviado! Redirecionando para WhatsApp...");
+      
+      // Redirect to WhatsApp after 1 second
+      setTimeout(() => {
+        const whatsappNumber = "5521977205050";
+        const message = encodeURIComponent(`Olá! Acabei de preencher o formulário de agendamento. Meu nome é ${formData.name}.`);
+        window.location.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+      }, 1000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Erro ao enviar agendamento. Tente novamente.");
+    }
   };
 
   const progressPercentage = (step / totalSteps) * 100;
