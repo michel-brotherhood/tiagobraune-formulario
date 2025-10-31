@@ -45,7 +45,7 @@ const Index = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             <div className="flex flex-col items-center p-6 md:p-8 bg-card rounded-xl shadow-sm border hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in">
               <h3 className="font-semibold text-foreground mb-4 text-base md:text-lg text-center">Atendimento Profissional</h3>
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 animate-pulse hover:animate-none transition-all duration-300 hover:scale-110">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/10 flex items-center justify-center animate-pulse hover:animate-none transition-all duration-200 hover:scale-110" style={{ animationDuration: '1.5s' }}>
                 <Brain className="w-8 h-8 md:w-10 md:h-10 text-primary" />
               </div>
               <p className="text-sm md:text-base text-muted-foreground text-center">
@@ -55,7 +55,7 @@ const Index = () => {
 
             <div className="flex flex-col items-center p-6 md:p-8 bg-card rounded-xl shadow-sm border hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <h3 className="font-semibold text-foreground mb-4 text-base md:text-lg text-center">Hipnoterapia Clínica</h3>
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-secondary/10 flex items-center justify-center mb-4 animate-pulse hover:animate-none transition-all duration-300 hover:scale-110" style={{ animationDelay: '0.1s' }}>
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-secondary/10 flex items-center justify-center animate-pulse hover:animate-none transition-all duration-200 hover:scale-110" style={{ animationDuration: '1.5s', animationDelay: '0.1s' }}>
                 <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-secondary" />
               </div>
               <p className="text-sm md:text-base text-muted-foreground text-center">
@@ -65,7 +65,7 @@ const Index = () => {
 
             <div className="flex flex-col items-center p-6 md:p-8 bg-card rounded-xl shadow-sm border hover:shadow-lg transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-1 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <h3 className="font-semibold text-foreground mb-4 text-base md:text-lg text-center">Cuidado Personalizado</h3>
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent/10 flex items-center justify-center mb-4 animate-pulse hover:animate-none transition-all duration-300 hover:scale-110" style={{ animationDelay: '0.2s' }}>
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent/10 flex items-center justify-center animate-pulse hover:animate-none transition-all duration-200 hover:scale-110" style={{ animationDuration: '1.5s', animationDelay: '0.2s' }}>
                 <Heart className="w-8 h-8 md:w-10 md:h-10 text-accent" />
               </div>
               <p className="text-sm md:text-base text-muted-foreground text-center">

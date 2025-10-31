@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import InputMask from "react-input-mask";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { ChevronRight, ChevronLeft, Check } from "lucide-react";
@@ -19,6 +22,7 @@ interface FormData {
 }
 
 const BookingForm = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -72,14 +76,10 @@ const BookingForm = () => {
         throw new Error("Erro ao enviar agendamento");
       }
 
-      toast.success("Agendamento enviado! Redirecionando para WhatsApp...");
+      toast.success("Agendamento enviado com sucesso!");
       
-      // Redirect to WhatsApp after 1 second
-      setTimeout(() => {
-        const whatsappNumber = "5521977205050";
-        const message = encodeURIComponent(`Olá! Acabei de preencher o formulário de agendamento. Meu nome é ${formData.name}.`);
-        window.location.href = `https://wa.me/${whatsappNumber}?text=${message}`;
-      }, 1000);
+      // Navigate to thank you page
+      navigate("/obrigado", { state: { name: formData.name } });
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Erro ao enviar agendamento. Tente novamente.");
@@ -155,14 +155,21 @@ const BookingForm = () => {
 
                   <div>
                     <Label htmlFor="phone">Telefone/WhatsApp *</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
+                    <InputMask
+                      mask="(99) 99999-9999"
                       value={formData.phone}
                       onChange={(e) => updateFormData("phone", e.target.value)}
-                      placeholder="(00) 00000-0000"
-                      required
-                    />
+                    >
+                      {(inputProps: any) => (
+                        <Input
+                          {...inputProps}
+                          id="phone"
+                          type="tel"
+                          placeholder="(00) 00000-0000"
+                          required
+                        />
+                      )}
+                    </InputMask>
                   </div>
                 </div>
               </div>
@@ -247,13 +254,20 @@ const BookingForm = () => {
 
                   <div>
                     <Label htmlFor="preferredTime">Melhor horário para contato *</Label>
-                    <Input
-                      id="preferredTime"
+                    <Select 
                       value={formData.preferredTime}
-                      onChange={(e) => updateFormData("preferredTime", e.target.value)}
-                      placeholder="Ex: Manhãs, tardes ou noites"
+                      onValueChange={(value) => updateFormData("preferredTime", value)}
                       required
-                    />
+                    >
+                      <SelectTrigger id="preferredTime">
+                        <SelectValue placeholder="Selecione o melhor período" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="morning">Manhã</SelectItem>
+                        <SelectItem value="afternoon">Tarde</SelectItem>
+                        <SelectItem value="evening">Noite</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div>
